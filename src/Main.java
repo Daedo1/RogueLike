@@ -1,11 +1,12 @@
 
-import Window.Menu;
+import Window.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        new Menu();
-        
-
+        Window.setWindow(new Menu());
+        Window.setFullScreen(true);
+    
     }
+    
 }
