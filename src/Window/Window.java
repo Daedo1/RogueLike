@@ -29,6 +29,14 @@ public class Window extends JFrame {
         return window;
     }
 
+    public void setWindow(Window newWindow) {
+        if (window != null) {
+            window.dispose();
+        }
+        
+        window = newWindow;
+    } 
+
 
 
 }
