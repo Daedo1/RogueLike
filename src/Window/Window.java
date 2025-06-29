@@ -16,13 +16,9 @@ public class Window extends JFrame {
     private static Window window = null;
 
     protected Window() {
-        
-        add(new Button());
 
         setTitle(TITLE);
         setResizable(false);
-
-
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
