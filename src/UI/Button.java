@@ -11,9 +11,6 @@ public abstract class Button extends Sprite implements MouseListener {
     private static final String FILE = "src/Images/button.png";
 
 
-    private static final float ALPHA = 0.9f;
-
-
     private JLabel textLabel;
     private String text; 
 
@@ -32,11 +29,11 @@ public abstract class Button extends Sprite implements MouseListener {
     public abstract void action();
 
     public void mousePressed(MouseEvent e) {
-
+        action();
     }
 
     public void mouseClicked(MouseEvent e) {
-        action();
+        
     }
 
     public void mouseReleased(MouseEvent e) {

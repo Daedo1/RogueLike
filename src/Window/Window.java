@@ -5,6 +5,8 @@ import java.awt.*;
 import javax.swing.*;
 
 
+import Assets.Sprite;
+
 public class Window extends JFrame {
     
     private final String TITLE = "RogueLike";
@@ -14,6 +16,9 @@ public class Window extends JFrame {
     private static boolean fullScreen = false;
     
     private static Window window = null;
+
+
+    private Sprite background = null;
 
     protected Window() {
 
@@ -60,6 +65,23 @@ public class Window extends JFrame {
             device.setFullScreenWindow(null);
         }
     }
+
+    public Sprite getBg() {
+        if (background == null) {
+            throw new IllegalStateException("Background has not been set");
+        }
+
+
+        return background;
+    }
+
+    public void setBg(String file) {
+
+        background = new Sprite(file);
+        add(background);
+
+    }
+
 
 
 }

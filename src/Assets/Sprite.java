@@ -10,10 +10,14 @@ import java.io.*;
 
 public class Sprite extends JPanel implements MouseListener {
 
+    protected static final float ALPHA = 0.9f;
+
     private BufferedImage image;
     private int x;
     private int y;
     private float alpha;
+
+    private boolean selectable;
 
     public Sprite(String file) {
 
@@ -22,6 +26,7 @@ public class Sprite extends JPanel implements MouseListener {
         x = 0;
         y = 0;
         alpha = 1.0f;
+        selectable = false;
 
         setOpaque(false);
         setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
@@ -55,6 +60,10 @@ public class Sprite extends JPanel implements MouseListener {
     }
 
 
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
+    }
+
     public void mousePressed(MouseEvent e) {
 
     }
@@ -64,11 +73,22 @@ public class Sprite extends JPanel implements MouseListener {
     }
 
     public void mouseEntered(MouseEvent e) {
+        if (!selectable) {
+            return;
+        }
+
+        setAlpha(ALPHA);
+        repaint();
 
     }
 
     public void mouseExited(MouseEvent e) {
+        if (!selectable) {
+            return;
+        }
 
+        setAlpha(ALPHA);
+        repaint();
     }
 
     public void mouseReleased(MouseEvent e) {
