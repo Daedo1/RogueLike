@@ -11,6 +11,6 @@ public class Play extends Button {
     }
 
     public void action() {
-        Window.setWindow(new Game());
+        Window.setWindow(new Battle());
     }
 }

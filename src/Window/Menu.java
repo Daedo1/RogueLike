@@ -12,6 +12,21 @@ public class Menu extends Window {
         setBg("src/Images/bg.png");
 
         JPanel background = getBg();
+        JPanel panel = new JPanel();
+        background.add(panel);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setOpaque(false);
+
+        // Title
+        JPanel titlePanel = new JPanel();
+
+        JLabel titleText = new JLabel(TITLE);
+        titleText.setFont(new Font("Arial", Font.PLAIN, 44));
+
+
+        titlePanel.setOpaque(false);
+        titlePanel.add(titleText);
+
 
         // Buttons
 
@@ -26,9 +41,9 @@ public class Menu extends Window {
         buttonPanel.add(new Quit());
 
 
-        // Add all component panels to background
-
-        background.add(buttonPanel);
+        // Add all component panels to panel
+        panel.add(titlePanel);
+        panel.add(buttonPanel);
 
 
 

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import java.io.*;
 
 
-public class Sprite extends JPanel implements MouseListener {
+public class Sprite extends JPanel {
 
     protected static final float ALPHA = 0.9f;
 
@@ -64,36 +64,6 @@ public class Sprite extends JPanel implements MouseListener {
         this.selectable = selectable;
     }
 
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    public void mouseEntered(MouseEvent e) {
-        if (!selectable) {
-            return;
-        }
-
-        setAlpha(ALPHA);
-        repaint();
-
-    }
-
-    public void mouseExited(MouseEvent e) {
-        if (!selectable) {
-            return;
-        }
-
-        setAlpha(ALPHA);
-        repaint();
-    }
-
-    public void mouseReleased(MouseEvent e) {
-
-    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

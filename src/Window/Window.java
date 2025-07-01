@@ -9,7 +9,7 @@ import Assets.Sprite;
 
 public class Window extends JFrame {
     
-    private final String TITLE = "RogueLike";
+    protected final String TITLE = "RogueLike";
 
 
     private static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
