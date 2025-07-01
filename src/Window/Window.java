@@ -4,13 +4,12 @@ import UI.Button;
 import java.awt.*;
 import javax.swing.*;
 
+import java.awt.event.*;
+import Assets.*;
 
-import Assets.Sprite;
-
-public class Window extends JFrame {
+public class Window extends JFrame implements MouseListener {
     
     protected final String TITLE = "RogueLike";
-
 
     private static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
     private static boolean fullScreen = false;
@@ -19,6 +18,7 @@ public class Window extends JFrame {
 
 
     private Sprite background = null;
+    private Selectable selection = null;
 
     protected Window() {
 
@@ -29,6 +29,7 @@ public class Window extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setFullScreen(fullScreen);
+        addMouseListener(this);
     }
 
     public static void update() {
@@ -79,9 +80,36 @@ public class Window extends JFrame {
 
         background = new Sprite(file);
         add(background);
-
     }
 
 
+    public void setSelection(Selectable selection) {
+        this.selection = selection;
+    }
 
+    public Selectable getSelection() {
+        return this.selection;
+    }
+
+
+    public void mousePressed(MouseEvent e) {
+        this.selection.setSelected(false);
+        this.selection = null;
+    }
+
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

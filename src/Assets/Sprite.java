@@ -10,14 +10,12 @@ import java.io.*;
 
 public class Sprite extends JPanel {
 
-    protected static final float ALPHA = 0.9f;
+    protected static final float ALPHA = 0.5f;
 
     private BufferedImage image;
     private int x;
     private int y;
     private float alpha;
-
-    private boolean selectable;
 
     public Sprite(String file) {
 
@@ -26,7 +24,6 @@ public class Sprite extends JPanel {
         x = 0;
         y = 0;
         alpha = 1.0f;
-        selectable = false;
 
         setOpaque(false);
         setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
@@ -57,11 +54,6 @@ public class Sprite extends JPanel {
 
     public void setAlpha(float alpha) {
         this.alpha = alpha;
-    }
-
-
-    public void setSelectable(boolean selectable) {
-        this.selectable = selectable;
     }
 
 

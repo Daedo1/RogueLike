@@ -6,9 +6,7 @@ import java.awt.event.*;
 
 import Assets.Character;
 
-public class Battle extends Window implements MouseListener {
-    
-    public static Character selection; 
+public class Battle extends Window {
 
 
     public Battle() {
@@ -22,27 +20,8 @@ public class Battle extends Window implements MouseListener {
         panel.add(new Character());
 
         background.add(panel);
-    }
-
-
-
-    public void mousePressed(MouseEvent e) {
 
     }
 
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    public void mouseEntered(MouseEvent e) {
-
-    }
-    public void mouseExited(MouseEvent e) {
-
-    }
 
 }

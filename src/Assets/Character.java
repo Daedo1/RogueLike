@@ -2,25 +2,25 @@ package Assets;
 
 import java.awt.*;
 import javax.swing.*;
-
+import java.awt.event.*;
 import java.util.*;
 
+import Window.*;
+import Window.Window;
 
-public class Character extends Sprite {
+
+public class Character extends Sprite implements MouseListener, Selectable {
     
     private static final String FILE = "src/Images/blueknight.png";
 
     private String name;
     private Map<String, Integer> stats;
-
-
-    private JLabel textLabel;
+    private boolean selectable;
 
     public Character() {
         super(FILE);
         name = "default_name";
         stats = new HashMap<>();
-
         stats.put("health", 0);
         stats.put("maxHealth", 0);
         stats.put("attack", 0);
@@ -28,13 +28,7 @@ public class Character extends Sprite {
         stats.put("defense", 0);
         stats.put("speed", 0);
         setSelectable(true); 
-
-        textLabel = new JLabel();
-
-        add(textLabel);
-
-
-        updateLabel();
+        addMouseListener(this);
     }
 
     public Character(String file, String name, Map<String, Integer> stats) {
@@ -44,12 +38,71 @@ public class Character extends Sprite {
         setSelectable(true); 
     }
 
-    public void updateLabel() {
-        textLabel.setText(this.toString());
+
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
+
+        if (!this.selectable) {
+            setAlpha(1.0f);
+            repaint();
+        }
     }
+
+    public boolean getSelectable() {
+        return selectable;
+    }
+
+    public void setSelected(boolean selected) {
+        if (selected) {
+            Window.getWindow().setSelection(this);
+        }
+
+        else {
+            setAlpha(1.0f);
+            repaint();
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        setSelected(true);
+    }
+
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        if (!selectable) {
+            return;
+        }
+        setAlpha(ALPHA);
+        repaint();
+
+    }
+
+    public void mouseExited(MouseEvent e) {
+        if (!selectable) {
+            return;
+        }
+        if (Window.getWindow().getSelection() == this) {
+            return;
+        }
+
+
+        setAlpha(1.0f);
+        repaint();
+
+        
+    }
+
 
     public String toString() {
         String text = "<html>";
+        text += name + "<br>";
         text += "Health: " + stats.get("health") + "/" + stats.get("maxHealth") + "<br>";
         text += "Attack: " + stats.get("attack") + "<br>";
         text += "Defense: " + stats.get("defense") + "<br>";
