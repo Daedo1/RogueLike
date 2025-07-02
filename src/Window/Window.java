@@ -91,10 +91,18 @@ public class Window extends JFrame implements MouseListener {
         return this.selection;
     }
 
+    public void resetSelection() {
 
-    public void mousePressed(MouseEvent e) {
         this.selection.setSelected(false);
         this.selection = null;
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if (selection == null) {
+            return;
+        }
+        
+        resetSelection();
     }
 
     public void mouseClicked(MouseEvent e) {

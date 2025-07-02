@@ -9,7 +9,7 @@ import Window.*;
 import Window.Window;
 
 
-public class Character extends Sprite implements MouseListener, Selectable {
+public class Entity extends Sprite implements MouseListener, Selectable {
     
     private static final String FILE = "src/Images/blueknight.png";
 
@@ -17,7 +17,7 @@ public class Character extends Sprite implements MouseListener, Selectable {
     private Map<String, Integer> stats;
     private boolean selectable;
 
-    public Character() {
+    public Entity() {
         super(FILE);
         name = "default_name";
         stats = new HashMap<>();
@@ -31,11 +31,24 @@ public class Character extends Sprite implements MouseListener, Selectable {
         addMouseListener(this);
     }
 
-    public Character(String file, String name, Map<String, Integer> stats) {
+    public Entity(String file, String name, Map<String, Integer> stats) {
         super(file); 
         this.name = name;
         this.stats = stats;
         setSelectable(true); 
+        addMouseListener(this);
+    }
+
+    public Entity(String file, String name, int health, int maxHealth, int attack,
+                        int magic, int defense, int speed) {
+        this(file, name, Map.of(
+                "health", health,
+                "maxHealth", maxHealth,
+                "attack", attack,
+                "magic", magic,
+                "defense", defense,
+                "speed", speed
+        )); 
     }
 
 
