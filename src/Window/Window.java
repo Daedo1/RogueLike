@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import Assets.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Window extends JFrame implements MouseListener {
     
     protected final String TITLE = "RogueLike";
@@ -17,10 +20,14 @@ public class Window extends JFrame implements MouseListener {
     private static Window window = null;
 
 
-    private Sprite background = null;
-    private Selectable selection = null;
+    private Sprite background;
+    private Selectable selection;
+
 
     protected Window() {
+
+        background = null;
+        selection = null;
 
         setTitle(TITLE);
         setResizable(false);
@@ -92,6 +99,9 @@ public class Window extends JFrame implements MouseListener {
     }
 
     public void resetSelection() {
+        if (selection == null) {
+            return;
+        }
 
         this.selection.setSelected(false);
         this.selection = null;

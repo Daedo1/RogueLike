@@ -4,9 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 
 import Window.*;
 import Window.Window;
+
+import Assets.Moves.*;
 
 
 public class Entity extends Sprite implements MouseListener, Selectable {
@@ -16,6 +19,7 @@ public class Entity extends Sprite implements MouseListener, Selectable {
     private String name;
     private Map<String, Integer> stats;
     private boolean selectable;
+    private List<Move> moves;
 
     public Entity() {
         super(FILE);
@@ -29,6 +33,10 @@ public class Entity extends Sprite implements MouseListener, Selectable {
         stats.put("speed", 0);
         setSelectable(true); 
         addMouseListener(this);
+
+        moves = new ArrayList<>();
+        moves.add(new Attack());
+
     }
 
     public Entity(String file, String name, Map<String, Integer> stats) {
@@ -37,6 +45,9 @@ public class Entity extends Sprite implements MouseListener, Selectable {
         this.stats = stats;
         setSelectable(true); 
         addMouseListener(this);
+
+        moves = new ArrayList<>();
+        moves.add(new Attack());
     }
 
     public Entity(String file, String name, int health, int maxHealth, int attack,
@@ -49,6 +60,10 @@ public class Entity extends Sprite implements MouseListener, Selectable {
                 "defense", defense,
                 "speed", speed
         )); 
+    }
+
+    public List<Move> getMoves() {
+        return moves;
     }
 
 
@@ -77,6 +92,7 @@ public class Entity extends Sprite implements MouseListener, Selectable {
     }
 
     public void mousePressed(MouseEvent e) {
+        Window.getWindow().resetSelection();
         setSelected(true);
     }
 
@@ -111,7 +127,6 @@ public class Entity extends Sprite implements MouseListener, Selectable {
 
         
     }
-
 
     public String toString() {
         String text = "<html>";

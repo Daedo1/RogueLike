@@ -54,6 +54,7 @@ public class Sprite extends JPanel {
 
     public void setAlpha(float alpha) {
         this.alpha = alpha;
+        // repaint();
     }
 
 
