@@ -40,7 +40,7 @@ public class TurnManager {
 
     public static void checkWin() {
         if (Battle.getHeros().isEmpty()) {
-            
+
         }
 
         else if (Battle.getEnemies().isEmpty()) {
@@ -67,5 +67,9 @@ public class TurnManager {
         }
 
         turns = temp;
+    }
+
+    public static void removeEntity(Entity entity) {
+        turns.remove(entity);
     }
 }

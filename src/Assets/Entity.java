@@ -95,12 +95,23 @@ public class Entity extends Sprite implements MouseListener, Selectable {
             usedModifier = "magic";
         }
 
-        else {
+        else if (type == 2) {
             usedModifier = "speed";
         }
 
+        else {
+            usedModifier = "";
+        }
 
-        int actualDamage = damage - stats.get(usedModifier);
+        int actualDamage;
+
+        if (usedModifier.equals("")) {
+            actualDamage = damage;
+        }
+
+        else {
+            actualDamage = damage - stats.get(usedModifier);
+        }
 
         if (actualDamage <= 0) {
             actualDamage = 1;

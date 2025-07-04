@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import Assets.Heros.*;
+import UI.*;
 
 public class Window extends JFrame implements MouseListener {
     
@@ -37,25 +38,24 @@ public class Window extends JFrame implements MouseListener {
         setTitle(TITLE);
         setResizable(false);
 
-        /* 
-        add(layers);
+    
         toolTipLayer = new JPanel();
-        layers.add(toolTipLayer);
-        toolTipLayer.add(new Knight());
-        toolTipLayer.setLayout(null);
-        toolTipLayer.setBounds(0, 0, 1000, 1000);
-        setLayout(null);
-        */
+        toolTipLayer.setOpaque(false);
+        layers.add(toolTipLayer, JLayeredPane.MODAL_LAYER);
+      
+        setLayeredPane(layers);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
         setFullScreen(fullScreen);
         addMouseListener(this);
+
+        setLayout(null);
+
     }
 
     public static void update() {
-        window.pack();
         window.setLocationRelativeTo(null);
     }
 
@@ -101,7 +101,16 @@ public class Window extends JFrame implements MouseListener {
     public void setBg(String file) {
 
         background = new Sprite(file);
-        add(background);
+
+        int width = (int) background.getPreferredSize().getWidth();
+        int height = (int) background.getPreferredSize().getHeight();
+
+        layers.setBounds(0, 0, width, height);
+        setSize(width, height);
+
+        layers.add(background, JLayeredPane.DEFAULT_LAYER);
+        background.setBounds(0, 0, width, height);
+        toolTipLayer.setBounds(0, 0, width, height);
 
 
     }
