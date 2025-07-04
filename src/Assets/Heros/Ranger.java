@@ -2,11 +2,16 @@ package Assets.Heros;
 
 import Assets.*;
 
+// Starts with high attack and and medium defense
+// medium hp
+// Medium defense against magic
+// High speed
+// Somewhat simple character with 
 public class Ranger extends Hero {
     
     private static final String FILE = "src/Images/ranger.png";
 
     public Ranger() {
-        super(FILE, "ranger", 0, 0, 0, 0, 0, 0);
+        super(FILE, "ranger", 10, 10, 12, 5, 5, 10);
     }
 }

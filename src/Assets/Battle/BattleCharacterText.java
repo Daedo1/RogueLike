@@ -1,7 +1,10 @@
-package Assets;
+package Assets.Battle;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Assets.Entity;
+import Assets.Sprite;
 
 public class BattleCharacterText extends Sprite {
     

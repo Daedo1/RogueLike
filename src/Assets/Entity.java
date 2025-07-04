@@ -11,6 +11,8 @@ import Window.Window;
 
 import Assets.Moves.*;
 
+import Assets.Battle.*;
+
 
 public class Entity extends Sprite implements MouseListener, Selectable {
     
@@ -20,6 +22,7 @@ public class Entity extends Sprite implements MouseListener, Selectable {
     private Map<String, Integer> stats;
     private boolean selectable;
     private List<Move> moves;
+    private TargetBorder target;
 
     public Entity() {
         super(FILE);
@@ -31,41 +34,87 @@ public class Entity extends Sprite implements MouseListener, Selectable {
         stats.put("magic", 0);
         stats.put("defense", 0);
         stats.put("speed", 0);
-        setSelectable(true); 
+        addMouseListener(this);
+
+        moves = new ArrayList<>();
+        target = null;
+
+    }
+
+    public Entity(String file, String name, int health, int maxHealth, int attack, int magic,
+                    int defense, int speed) {
+        super(file);
+        this.name = name;
+        stats = new HashMap<>();
+        
+        stats.put("health", health);
+        stats.put("maxHealth", maxHealth);
+        stats.put("attack", attack);
+        stats.put("magic", magic);
+        stats.put("defense", defense);
+        stats.put("speed", speed);
+
         addMouseListener(this);
 
         moves = new ArrayList<>();
         moves.add(new Attack());
-
+        moves.add(new Pass());
     }
+
+
 
     public Entity(String file, String name, Map<String, Integer> stats) {
-        super(file); 
-        this.name = name;
-        this.stats = stats;
-        setSelectable(true); 
-        addMouseListener(this);
-
-        moves = new ArrayList<>();
-        moves.add(new Attack());
+        this(file, name, stats.get("health"), stats.get("maxHealth"), stats.get("attack"),
+                    stats.get("magic"), stats.get("defense"), stats.get("speed"));
     }
 
-    public Entity(String file, String name, int health, int maxHealth, int attack,
-                        int magic, int defense, int speed) {
-        this(file, name, Map.of(
-                "health", health,
-                "maxHealth", maxHealth,
-                "attack", attack,
-                "magic", magic,
-                "defense", defense,
-                "speed", speed
-        )); 
+    public void addMove(Move move) {
+        moves.add(move);
     }
 
     public List<Move> getMoves() {
         return moves;
     }
 
+    public Map<String, Integer> getStats() {
+        return stats;
+    }
+
+
+    // Type of Attack where 0 - physical
+    // 1 - magic attack
+    // 2 - speed attack
+    public void assignDamage(int damage, int type) {
+        String usedModifier;
+
+        if (type == 0) {
+            usedModifier = "defense";
+        }
+
+        else if (type == 1) {
+            usedModifier = "magic";
+        }
+
+        else {
+            usedModifier = "speed";
+        }
+
+
+        int actualDamage = damage - stats.get(usedModifier);
+
+        if (actualDamage <= 0) {
+            actualDamage = 1;
+        }
+
+        stats.put("health", stats.get("health") - actualDamage);
+
+        if (stats.get("health") <= 0) {
+            Battle.removeEntity(this);
+        }
+
+
+
+    }
 
     public void setSelectable(boolean selectable) {
         this.selectable = selectable;
@@ -92,6 +141,11 @@ public class Entity extends Sprite implements MouseListener, Selectable {
     }
 
     public void mousePressed(MouseEvent e) {
+        if (!selectable) {
+            return;
+        }
+
+
         Window.getWindow().resetSelection();
         setSelected(true);
     }
@@ -128,6 +182,25 @@ public class Entity extends Sprite implements MouseListener, Selectable {
         
     }
 
+    public void attackTarget() {
+        target = new TargetBorderAttack(this);
+        addCenter(target);
+        repaint();
+
+    }
+
+    public void removeTarget() {
+        if (target == null) {
+            throw new IllegalStateException("Attempted to remove target that is not initialized");
+        }
+
+        remove(target);
+        target = null;
+
+        repaint();
+
+    }
+
     public String toString() {
         String text = "<html>";
         text += name + "<br>";
@@ -139,4 +212,5 @@ public class Entity extends Sprite implements MouseListener, Selectable {
         text += "</html>";
         return text;
     }
+    
 }

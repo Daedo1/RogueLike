@@ -6,18 +6,22 @@ import java.awt.event.*;
 
 
 import Assets.*;
-import Assets.Entity;
+import Assets.Battle.*;
 import Assets.Heros.*;
 import Assets.Enemies.*;
 import Assets.Moves.*;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Battle extends Window {
 
 
     private BattleCharacterText characterText;
     private MoveManager moveManager;
+
+    private BattleEntityPanel heroPanel;
+    private BattleEntityPanel enemyPanel;
 
 
     public Battle() {
@@ -36,8 +40,14 @@ public class Battle extends Window {
         // ** CharacterPanel
         JPanel characterPanel = new JPanel();
         characterPanel.setOpaque(false);
-        characterPanel.add(new Knight());
-        characterPanel.add(new Ranger());
+
+        List<Entity> heros = new ArrayList<>();
+        heros.add(new Knight());
+        heros.add(new Ranger());
+
+
+        heroPanel = new BattleEntityPanel(heros);
+        characterPanel.add(heroPanel);
 
         // ** CharacterTextPanel
         characterText = new BattleCharacterText();
@@ -64,17 +74,25 @@ public class Battle extends Window {
 
 
         // ** Enemy Panel
-        JPanel enemyPanel = new JPanel();
-        enemyPanel.setOpaque(false);
+        JPanel enemyJPanel = new JPanel();
+        enemyJPanel.setOpaque(false);
 
-        enemyPanel.add(new Skeleton());
+        List<Entity> enemies = new ArrayList<>();
+        enemies.add(new Skeleton());
+
+        enemyPanel = new BattleEntityPanel(enemies);
+
+        enemyJPanel.add(enemyPanel);
 
         // Adding All panels to rightPanel 
-        rightPanel.add(enemyPanel);
+        rightPanel.add(enemyJPanel);
 
 
         background.add(leftPanel);
         background.add(rightPanel);
+
+        TurnManager.init(heros, enemies);
+
     }
 
     public void setSelection(Selectable selection) {
@@ -94,8 +112,64 @@ public class Battle extends Window {
         moveManager.clear();
     }
 
-    public MoveManager getMoveManager() {
-        return moveManager;
+    public static MoveManager getMoveManager() {
+        
+        Window currWindow = Window.getWindow();
+
+        if (!(currWindow instanceof Battle)) {
+            throw new IllegalStateException("Not a battle");
+        }
+
+        Battle battle = (Battle) currWindow;
+
+        return battle.moveManager;
+    }
+
+    public static List<Entity> getHeros() {
+        Window currWindow = Window.getWindow();
+
+        if (!(currWindow instanceof Battle)) {
+            throw new IllegalStateException("Not a battle");
+        }
+
+        Battle battle = (Battle) currWindow;
+
+
+        return battle.heroPanel.getEntities();
+    }
+
+    public static List<Entity> getEnemies() {
+        Window currWindow = Window.getWindow();
+
+        if (!(currWindow instanceof Battle)) {
+            throw new IllegalStateException("Not a battle");
+        }
+
+        Battle battle = (Battle) currWindow;
+
+
+        return battle.enemyPanel.getEntities();
+    }
+
+    public static void removeEntity(Entity entity) {
+
+        Window currWindow = Window.getWindow();
+
+        if (!(currWindow instanceof Battle)) {
+            throw new IllegalStateException("Not a battle");
+        }
+
+        Battle battle = (Battle) currWindow;
+
+        if (Battle.getHeros().contains(entity)) {
+            battle.heroPanel.remove(entity);
+            battle.heroPanel.repaint();
+        }
+
+        else {
+            battle.enemyPanel.remove(entity);
+            battle.enemyPanel.repaint();
+        }
     }
 
 }

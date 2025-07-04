@@ -21,18 +21,20 @@ public abstract class Move extends Sprite implements Selectable, MouseListener {
         addMouseListener(this);
     }
 
-    public abstract void use(List<Entity> targets);
+    public abstract void use(Entity user, Entity target);
 
+    public abstract void displayOptions();
+
+    public abstract void resetOptions();
 
     public void setSelected(boolean selected) {
 
         if (selected) {
-            getMoveManager().setMoveSelection(this);
-            selected = true;
+            Battle.getMoveManager().setMoveSelection(this);
         }   
 
         else {  
-            selected = false;
+            resetOptions();
             setAlpha(1.0f);
             repaint();
         }
@@ -48,8 +50,9 @@ public abstract class Move extends Sprite implements Selectable, MouseListener {
     }
 
     public void mousePressed(MouseEvent e) {
-        getMoveManager().resetSelection();
+        Battle.getMoveManager().resetSelection();
         setSelected(true);
+        displayOptions();
 
     }
 
@@ -78,7 +81,7 @@ public abstract class Move extends Sprite implements Selectable, MouseListener {
             return;
         }
 
-        if (getMoveManager().getMoveSelection() == this) {
+        if (Battle.getMoveManager().getMoveSelection() == this) {
             return;
         }
 
@@ -86,16 +89,5 @@ public abstract class Move extends Sprite implements Selectable, MouseListener {
         repaint();
     }
 
-    private MoveManager getMoveManager() {
-        Window currWindow = Window.getWindow();
-
-        if (!(currWindow instanceof Battle)) {
-            throw new IllegalStateException("Not a battle");
-        }
-
-        Battle battle = (Battle) currWindow;
-
-        return battle.getMoveManager();
-    }
 }
 

@@ -13,8 +13,8 @@ public class Enemy extends Entity {
         super(file, name, stats);
     }
 
-    public Enemy(String file, String name, int health, int maxHealth, int attack, int magic,
-                    int defense, int speed) {
-        super(file, name, attack, maxHealth, attack, magic, defense, speed);
+    public Enemy(String file, String name, int health, int maxHealth, int attack,
+                    int magic, int defense, int speed) {
+        super(file, name, health, maxHealth, attack, magic, defense, speed);
     }
 }

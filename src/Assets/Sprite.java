@@ -26,7 +26,16 @@ public class Sprite extends JPanel {
         alpha = 1.0f;
 
         setOpaque(false);
-        setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));  
+
+    }
+
+    public void addCenter(JComponent component) {
+        add(component);
+        setComponentZOrder(component, 0);
+
+        component.setBounds(0, 0, image.getWidth(), image.getHeight());
+
 
     }
 

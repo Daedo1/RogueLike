@@ -10,6 +10,8 @@ import Assets.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import Assets.Heros.*;
+
 public class Window extends JFrame implements MouseListener {
     
     protected final String TITLE = "RogueLike";
@@ -20,17 +22,30 @@ public class Window extends JFrame implements MouseListener {
     private static Window window = null;
 
 
+    private JLayeredPane layers;
+    private JPanel toolTipLayer;
     private Sprite background;
     private Selectable selection;
 
 
     protected Window() {
 
+        layers = new JLayeredPane();
         background = null;
         selection = null;
 
         setTitle(TITLE);
         setResizable(false);
+
+        /* 
+        add(layers);
+        toolTipLayer = new JPanel();
+        layers.add(toolTipLayer);
+        toolTipLayer.add(new Knight());
+        toolTipLayer.setLayout(null);
+        toolTipLayer.setBounds(0, 0, 1000, 1000);
+        setLayout(null);
+        */
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -87,6 +102,8 @@ public class Window extends JFrame implements MouseListener {
 
         background = new Sprite(file);
         add(background);
+
+
     }
 
 
